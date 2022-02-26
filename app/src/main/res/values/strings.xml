@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Atividade3</string>
+    <string name="digite_sua_senha">Digite sua senha</string>
+    <string name="digite_seu_nome">Digite seu nome</string>
+    <string name="za_warudo">Za Warudo!</string>
+    <string name="enviar">Enviar</string>
+    <string name="nova_actv">Nova Actv</string>
+</resources>

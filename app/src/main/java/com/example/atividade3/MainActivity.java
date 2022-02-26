@@ -1,0 +1,68 @@
+package com.example.atividade3;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private TextView tv1;
+    private EditText et1,et2;
+    private Button bt1,bt2;
+    private String name;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        tv1 = (TextView) findViewById(R.id.tv1);
+        et1 = (EditText) findViewById(R.id.et1);
+        et2 = (EditText) findViewById(R.id.et2);
+        bt1 = (Button) findViewById(R.id.bt1);
+        bt2 = (Button) findViewById(R.id.bt2);
+
+        if(savedInstanceState != null){
+            name = savedInstanceState.getString("chaveNome");
+        }else{
+            name = "Za Warudo!";
+        }
+        tv1.setText(name);
+
+        bt1.setOnClickListener(this);
+        bt2.setOnClickListener(this);
+    }
+    protected void onSaveInstanceState(Bundle dados){
+        super.onSaveInstanceState(dados);
+        dados.putString("chaveNome", name);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if(view.getId() == R.id.bt1 && et1.getText().toString().equals("Eduardo") && et2.getText().toString().equals("123")){
+            name = et1.getText().toString();
+            tv1.setText(name);
+            Intent intent = new Intent(this, BemVindoActivity.class);
+            Bundle parametros = new Bundle();
+            parametros.putString("idNome", name);
+            intent.putExtras(parametros);
+            startActivity(intent);
+        }else if(view.getId() == R.id.bt2){
+            Intent intent = new Intent(this, BemVindoActivity.class);
+            Bundle parametros = new Bundle();
+            parametros.putString("idNome", name);
+            intent.putExtras(parametros);
+            startActivity(intent);
+        }else{
+            Toast.makeText(getApplicationContext(), "Login ou senha errados!", Toast.LENGTH_SHORT).show();
+        }
+
+
+    }
+}
