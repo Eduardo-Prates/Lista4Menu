@@ -1,5 +1,10 @@
 package com.example.atividade3;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -17,6 +22,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button bt1,bt2;
     private String name;
 
+    ActivityResultLauncher<Intent> activityResultLauncher;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +34,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         et2 = (EditText) findViewById(R.id.et2);
         bt1 = (Button) findViewById(R.id.bt1);
         bt2 = (Button) findViewById(R.id.bt2);
+
+        activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if(result.getResultCode() == 69){
+                            Intent intent = result.getData();
+
+                            if(intent != null){
+                                String data = intent.getStringExtra("result");
+                                tv1.setText(data);
+                            }
+                        }
+                    }
+                });
 
         if(savedInstanceState != null){
             name = savedInstanceState.getString("chaveNome");
@@ -58,11 +79,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Bundle parametros = new Bundle();
             parametros.putString("idNome", name);
             intent.putExtras(parametros);
-            startActivity(intent);
+            activityResultLauncher.launch(intent);
+
         }else{
             Toast.makeText(getApplicationContext(), "Login ou senha errados!", Toast.LENGTH_SHORT).show();
         }
+    }
 
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

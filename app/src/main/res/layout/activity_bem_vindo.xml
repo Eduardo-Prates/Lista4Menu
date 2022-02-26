@@ -14,4 +14,19 @@
         android:layout_gravity="center"
         android:textSize="30sp"/>
 
+    <EditText
+        android:id="@+id/et_novoNome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Digite algo"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"/>
+    
+    <Button
+        android:id="@+id/bt_ok"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="OK"/>
+
+
 </LinearLayout>
