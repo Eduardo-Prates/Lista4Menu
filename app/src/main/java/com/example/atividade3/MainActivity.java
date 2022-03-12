@@ -42,44 +42,79 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         spn = findViewById(R.id.spinner1);
 
+        spn.setOnItemSelectedListener(this);
+
         String[] moedas = getResources().getStringArray(R.array.names);
         ArrayAdapter adapter = new ArrayAdapter(this,
                 android.R.layout.simple_spinner_item, moedas);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spn.setAdapter(adapter);
 
-        bt1.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public void onClick(View view) {
-                double valorReal = Double.parseDouble(et1.getText().toString());
-                double valorPeso = valorReal * 8.4;
-                double valorDolar = valorReal * 5.10;
-
-                name = "Peso: " + String.valueOf(valorPeso);
-                name2 = "Dolar: " + String.valueOf(valorDolar);
-                tv1.setText(name);
-                tv2.setText(name2);
-            }
-        });
-
         if(savedInstanceState != null){
             name = savedInstanceState.getString("chaveNome");
+            name2 = savedInstanceState.getString("chaveNome2");
         }else{
             name = "Conversor de Moedas";
         }
+        tv1.setText(name);
+        tv2.setText(name2);
 
     }
     protected void onSaveInstanceState(Bundle dados){
         super.onSaveInstanceState(dados);
         dados.putString("chaveNome", name);
+        dados.putString("chaveNome2", name2);
     }
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         if(adapterView.getId() == R.id.spinner1) {
-            Toast.makeText(this, "TESTEE", Toast.LENGTH_SHORT).show();
             String valueFromSpinner = adapterView.getItemAtPosition(i).toString();
+            if(valueFromSpinner.equals("BRL")){
+                bt1.setOnClickListener(new View.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.O)
+                    @Override
+                    public void onClick(View view) {
+                        double valorReal = Double.parseDouble(et1.getText().toString());
+                        double valorPeso = valorReal * 8.4;
+                        double valorDolar = valorReal * 0.20;
+
+                        name = "Peso: " + String.valueOf(valorPeso);
+                        name2 = "Dolar: " + String.valueOf(valorDolar);
+                        tv1.setText(name);
+                        tv2.setText(name2);
+                    }
+                });
+            }else if(valueFromSpinner.equals("USD")){
+                bt1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        double valorReal = Double.parseDouble(et1.getText().toString());
+                        double valorPeso = valorReal * 42.48;
+                        double valorDolar = valorReal * 5.08;
+
+                        name = "Peso: " + String.valueOf(valorPeso);
+                        name2 = "Real: " + String.valueOf(valorDolar);
+                        tv1.setText(name);
+                        tv2.setText(name2);
+                    }
+                });
+            }else if(valueFromSpinner.equals("UYU")){
+                bt1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        double valorReal = Double.parseDouble(et1.getText().toString());
+                        double valorPeso = valorReal * 0.12;
+                        double valorDolar = valorReal * 0.023;
+
+                        name = "Real: " + String.valueOf(valorPeso);
+                        name2 = "Dolar: " + String.valueOf(valorDolar);
+                        tv1.setText(name);
+                        tv2.setText(name2);
+                    }
+                });
+            }
+
 
         }
     }

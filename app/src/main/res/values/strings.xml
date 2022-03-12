@@ -6,8 +6,8 @@
     <string name="enviar">Enviar</string>
     <string name="nova_actv">Nova Actv</string>
     <string-array name="names">
-        <item>10</item>
-        <item>30</item>
-        <item>50</item>
+        <item>BRL</item>
+        <item>USD</item>
+        <item>UYU</item>
     </string-array>
 </resources>
