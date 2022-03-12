@@ -10,9 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Atividade3">
         <activity
-            android:name=".BemVindoActivity"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
